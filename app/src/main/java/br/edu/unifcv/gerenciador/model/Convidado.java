@@ -1,6 +1,8 @@
 package br.edu.unifcv.gerenciador.model;
 
-public class Convidado {
+import java.io.Serializable;
+
+public class Convidado implements Serializable {
 
     private int id;
     private String nome;

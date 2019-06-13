@@ -61,7 +61,7 @@ public class TodosFragment extends Fragment {
                 Intent intent = new Intent(context, ConvidadoFormActivity.class);
 //                intent.putExtras(bundle);
                 intent.putExtra(ConvidadoConstants.BundleConstants.NOME, convidado);
-                clienteEditado = (Cliente) intent.getSerializableExtra("cliente");
+//                clienteEditado = (Cliente) intent.getSerializableExtra("cliente");
 
 
                 startActivity(intent);

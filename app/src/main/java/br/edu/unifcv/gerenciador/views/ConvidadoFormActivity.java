@@ -1,7 +1,5 @@
 package br.edu.unifcv.gerenciador.views;
 
-import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,19 +19,21 @@ public class ConvidadoFormActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState);        this.mViewHolder.mButtonSave = findViewById(R.id.button_save);
+
         setContentView(R.layout.activity_convidado_form);
 
         this.loadComponents();
         
         this.setEvents();
-        String data = getIntent().getStringExtra(ConvidadoConstants.BundleConstants.NOME);
-        Integer presenca = getIntent().getIntExtra(ConvidadoConstants.CONFIRMACAO.CONFIRMACAO_TITULO,0);
         this.mConvidadoService = new ConvidadoService(this);
-        this.mViewHolder.mEditName.setText(data);
-        this.mViewHolder.mRadioAbsent.setChecked(presenca == ConvidadoConstants.CONFIRMACAO.AUSENTE);
-        this.mViewHolder.mRadioPresent.setChecked(presenca == ConvidadoConstants.CONFIRMACAO.PRESENTE);
-        this.mViewHolder.mRadioNotConfirmed.setChecked(presenca == ConvidadoConstants.CONFIRMACAO.NAO_CONFIRMADO);
+        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.NOME)){
+            Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.NOME);
+            this.mViewHolder.mEditName.setText(convidado.getNome());
+            this.mViewHolder.mRadioAbsent.setChecked(convidado.getPresenca() == ConvidadoConstants.CONFIRMACAO.AUSENTE);
+            this.mViewHolder.mRadioPresent.setChecked(convidado.getPresenca() == ConvidadoConstants.CONFIRMACAO.PRESENTE);
+            this.mViewHolder.mRadioNotConfirmed.setChecked(convidado.getPresenca() == ConvidadoConstants.CONFIRMACAO.NAO_CONFIRMADO);
+        }
     }
 
     private void setEvents() {
@@ -47,6 +47,11 @@ public class ConvidadoFormActivity extends AppCompatActivity {
 
     private void handleSave() {
         Convidado guestEntity = new Convidado();
+        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.NOME)){
+            Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.NOME);
+            guestEntity.setId(convidado.getId());
+        }
+
         guestEntity.setNome(this.mViewHolder.mEditName.getText().toString());
 
         if (this.mViewHolder.mRadioNotConfirmed.isChecked()) {
@@ -56,7 +61,6 @@ public class ConvidadoFormActivity extends AppCompatActivity {
         } else {
             guestEntity.setPresenca(ConvidadoConstants.CONFIRMACAO.AUSENTE);
         }
-        // Salva entidade no banco
         this.mConvidadoService.insert(guestEntity);
         this.finish();
     }

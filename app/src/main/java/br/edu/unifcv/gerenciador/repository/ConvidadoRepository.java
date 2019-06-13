@@ -83,7 +83,7 @@ public class ConvidadoRepository {
             ContentValues values = new ContentValues();
             values.put(DataBaseConstants.CONVIDADO.COLUMNS.NOME, convidado.getNome());
             values.put(DataBaseConstants.CONVIDADO.COLUMNS.PRESENCA, convidado.getPresenca());
-            if(convidado.getId()){
+            if(convidado.getId() != 0){
                 values.put(DataBaseConstants.CONVIDADO.COLUMNS.ID, convidado.getId());
                 db.update(DataBaseConstants.CONVIDADO.TABLE_NAME, values, "id="+ convidado.getId(), null);
             }else {

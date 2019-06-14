@@ -19,12 +19,10 @@ public class ConvidadoFormActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        this.mViewHolder.mButtonSave = findViewById(R.id.button_save);
-
+        super.onCreate(savedInstanceState);
+        this.mViewHolder.mButtonSave = findViewById(R.id.button_save);
         setContentView(R.layout.activity_convidado_form);
-
         this.loadComponents();
-        
         this.setEvents();
         this.mConvidadoService = new ConvidadoService(this);
         if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.NOME)){

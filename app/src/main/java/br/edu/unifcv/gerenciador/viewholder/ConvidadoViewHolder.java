@@ -43,7 +43,7 @@ public class ConvidadoViewHolder extends RecyclerView.ViewHolder {
                 new AlertDialog.Builder(mContext)
                         .setTitle(mContext.getString(R.string.remover_convidado))
                         .setMessage(mContext.getString(R.string.pergunta_remover_convidado))
-                        .setIcon(R.drawable.ic_menu_camera)
+                        .setIcon(R.drawable.ic_delete_forever)
                         .setPositiveButton(mContext.getString(R.string.excluir_convidado),
                                 new DialogInterface.OnClickListener() {
                                     @Override

@@ -12,5 +12,6 @@ public class ConvidadoConstants {
     public static class BundleConstants {
         public static final String CONVIDADO_ID = "convidado_id";
         public static final String NOME= "convidado_nome";
+        public static final String BUNDLECONVIDADO = "convidado_bundle";
     }
 }

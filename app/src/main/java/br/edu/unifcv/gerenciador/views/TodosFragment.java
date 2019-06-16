@@ -33,7 +33,9 @@ public class TodosFragment extends Fragment {
     private OnConvidadoListener listener;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) { super.onCreate(savedInstanceState); }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,14 +58,8 @@ public class TodosFragment extends Fragment {
             public void onClickList(int id) {
                 Convidado convidado = mConvidadoService.findById(id);
                 Bundle bundle = new Bundle();
-//                bundle.putString(ConvidadoConstants.BundleConstants.NOME, convidado.getNome());
-//                bundle.putInt(ConvidadoConstants.CONFIRMACAO.CONFIRMACAO_TITULO, convidado.getPresenca());
                 Intent intent = new Intent(context, ConvidadoFormActivity.class);
-//                intent.putExtras(bundle);
-                intent.putExtra(ConvidadoConstants.BundleConstants.NOME, convidado);
-//                clienteEditado = (Cliente) intent.getSerializableExtra("cliente");
-
-
+                intent.putExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO, convidado);
                 startActivity(intent);
             }
 

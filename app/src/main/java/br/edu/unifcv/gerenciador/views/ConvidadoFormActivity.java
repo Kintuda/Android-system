@@ -25,8 +25,8 @@ public class ConvidadoFormActivity extends AppCompatActivity {
         this.loadComponents();
         this.setEvents();
         this.mConvidadoService = new ConvidadoService(this);
-        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.NOME)){
-            Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.NOME);
+        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO)){
+            Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO);
             this.mViewHolder.mEditName.setText(convidado.getNome());
             this.mViewHolder.mRadioAbsent.setChecked(convidado.getPresenca() == ConvidadoConstants.CONFIRMACAO.AUSENTE);
             this.mViewHolder.mRadioPresent.setChecked(convidado.getPresenca() == ConvidadoConstants.CONFIRMACAO.PRESENTE);
@@ -45,8 +45,8 @@ public class ConvidadoFormActivity extends AppCompatActivity {
 
     private void handleSave() {
         Convidado guestEntity = new Convidado();
-        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.NOME)){
-            Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.NOME);
+        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO)){
+            Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO);
             guestEntity.setId(convidado.getId());
         }
 

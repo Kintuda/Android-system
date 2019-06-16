@@ -47,16 +47,17 @@ public class NaoConfirmadosFragment extends Fragment {
         listener = new OnConvidadoListener() {
             @Override
             public void onClickList(int id) {
+                Convidado convidado = mConvidadoService.findById(id);
                 Bundle bundle = new Bundle();
-                bundle.putInt(ConvidadoConstants.BundleConstants.CONVIDADO_ID, id);
-                Intent intent = new Intent(getContext(), ConvidadoFormActivity.class);
-                intent.putExtras(bundle);
+                Intent intent = new Intent(context, ConvidadoFormActivity.class);
+                intent.putExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO, convidado);
                 startActivity(intent);
             }
 
             @Override
             public void onDeleteClick(int id) {
-
+                mConvidadoService.delete(id);
+                loadConvidados();
             }
         };
 

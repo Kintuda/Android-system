@@ -5,6 +5,14 @@
     android:orientation="horizontal"
     android:layout_margin="10dp">
 
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:src="@drawable/ic_person"
+        />
+
     <TextView
         android:id="@+id/text_nome"
         android:layout_width="0dp"
@@ -17,6 +25,6 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:src="@drawable/ic_menu_camera"/>
+        android:src="@android:drawable/ic_menu_delete"/>
 
 </LinearLayout>

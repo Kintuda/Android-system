@@ -23,7 +23,8 @@
             android:id="@+id/radio_not_confirmed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/nao_confirmado"/>
+            android:text="@string/nao_confirmado"
+            android:checked="true"/>
         <RadioButton
             android:id="@+id/radio_present"
             android:layout_width="match_parent"

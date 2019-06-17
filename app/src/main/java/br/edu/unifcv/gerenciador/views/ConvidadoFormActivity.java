@@ -6,11 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import br.edu.unifcv.gerenciador.R;
 import br.edu.unifcv.gerenciador.constants.ConvidadoConstants;
 import br.edu.unifcv.gerenciador.model.Convidado;
 import br.edu.unifcv.gerenciador.service.ConvidadoService;
+import br.edu.unifcv.gerenciador.util.Validation;
 
 public class ConvidadoFormActivity extends AppCompatActivity {
 
@@ -25,7 +27,7 @@ public class ConvidadoFormActivity extends AppCompatActivity {
         this.loadComponents();
         this.setEvents();
         this.mConvidadoService = new ConvidadoService(this);
-        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO)){
+        if (getIntent().hasExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO)) {
             Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO);
             this.mViewHolder.mEditName.setText(convidado.getNome());
             this.mViewHolder.mRadioAbsent.setChecked(convidado.getPresenca() == ConvidadoConstants.CONFIRMACAO.AUSENTE);
@@ -44,23 +46,28 @@ public class ConvidadoFormActivity extends AppCompatActivity {
     }
 
     private void handleSave() {
+
         Convidado guestEntity = new Convidado();
-        if(getIntent().hasExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO)){
+        if (getIntent().hasExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO)) {
             Convidado convidado = (Convidado) getIntent().getSerializableExtra(ConvidadoConstants.BundleConstants.BUNDLECONVIDADO);
             guestEntity.setId(convidado.getId());
         }
+        if (!this.mViewHolder.mEditName.getText().toString().isEmpty()) {
+            guestEntity.setNome(this.mViewHolder.mEditName.getText().toString());
 
-        guestEntity.setNome(this.mViewHolder.mEditName.getText().toString());
-
-        if (this.mViewHolder.mRadioNotConfirmed.isChecked()) {
-            guestEntity.setPresenca(ConvidadoConstants.CONFIRMACAO.NAO_CONFIRMADO);
-        } else if (this.mViewHolder.mRadioPresent.isChecked()) {
-            guestEntity.setPresenca(ConvidadoConstants.CONFIRMACAO.PRESENTE);
-        } else {
-            guestEntity.setPresenca(ConvidadoConstants.CONFIRMACAO.AUSENTE);
+            if (this.mViewHolder.mRadioNotConfirmed.isChecked()) {
+                guestEntity.setPresenca(ConvidadoConstants.CONFIRMACAO.NAO_CONFIRMADO);
+            } else if (this.mViewHolder.mRadioPresent.isChecked()) {
+                guestEntity.setPresenca(ConvidadoConstants.CONFIRMACAO.PRESENTE);
+            } else {
+                guestEntity.setPresenca(ConvidadoConstants.CONFIRMACAO.AUSENTE);
+            }
+            this.mConvidadoService.insert(guestEntity);
+            this.finish();
+        }else{
+            Toast toast = Toast.makeText(this, "Nome é um campo obrigatório.", 200);
+            toast.show();
         }
-        this.mConvidadoService.insert(guestEntity);
-        this.finish();
     }
 
     private void loadComponents() {
